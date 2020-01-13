@@ -1,10 +1,17 @@
 from bottle import Bottle, run, \
      template, debug, get, route, static_file
-
 import os, sys
+from baza import unesi_demo_podatke, procitaj_sve_podatke, dohvati_drzavu_po_id
+
+
+#poziv funkcije koja napuni bazu test podacima
+unesi_demo_podatke()
+
+#citanje svih podataka iz baze
+procitaj_sve_podatke()
+
 
 dirname = os.path.dirname(sys.argv[0])
-
 app = Bottle()
 debug(True)
 
