@@ -10,7 +10,7 @@
     <title>My UPI Project</title>
     <link rel="stylesheet" type="text/css" href="/static/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/static/custom.css">
-    <script type="text/javascript" src="/static/jquery.js"></script>
+	<script type="text/javascript" src="/static/jquery.js"></script>
 	<script type="text/javascript" src="/static/custom.js"></script>
     <script type="text/javascript" src="/static/bootstrap.min.js"></script>
 </head>
