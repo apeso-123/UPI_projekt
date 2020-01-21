@@ -16,11 +16,10 @@
 </head>
 <body>
 
-
   	  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+  <nav class="navbar navbar-expand-lg navbar-dark static-top" style="background-color: #ff99bb;">
   <div>
-      <img id="logo" src="/logo.jpg"></img><br>
+      <img src="https://www.graphicsprings.com/filestorage/stencils/0ddb25ad340d8da337f7596e50a63821.png?width=500&height=500" style="width:100px;" >
   </div><br><br>
   <div class="container">
         <a class="navbar-brand" href="#">I have been there</a>
@@ -47,5 +46,3 @@
         </div>
     </div>
   </nav>
-
-  

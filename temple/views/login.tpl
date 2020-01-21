@@ -2,15 +2,15 @@
 <div class="container">
 	<div id="aplikacija">
 
-        <form>
-          <div class="loog">
-            <label class="label" for="uname"><b>Korisničko ime:<span class="fb-required">*</span></b></label>
-            <input type="text" placeholder="Unesite korisničko ime" name="uname" id="user" required="required" aria-required="true">
-            <br>
-            <label class="label" for="pass"><b>Lozinka:<span class="fb-required">*</span></b></label>
-            <input type="password" placeholder="Unesite lozinku" name="pass" id="pass" required="required" aria-required="true">
-            <br>
-            <button class="log" id="logiraj_se" type="login">Login</button>
+        <form style="width:100%" action='{{form_akcija}}' method='POST'>
+          <div class="loog"><br>
+            <label class="label" for="user_name"><b>Korisničko ime:<span class="fb-required">*</span></b></label>
+            <input type="text" placeholder="Unesite korisničko ime" name="usr_name" id="user_name" required="required" aria-required="true">
+            <br><br>
+            <label class="label" for="password"><b>Lozinka:<span class="fb-required">*</span></b></label>
+            <input type="password" placeholder="Unesite lozinku" name="password" id="password" required="required" aria-required="true">
+            <br><br>
+            <button class="log" id="logiraj_se" type="submit">Login</button><br><br>
             <button class="reg" id="registiraj"><a href="reg">Registriraj se</a></button>
           </div>
 

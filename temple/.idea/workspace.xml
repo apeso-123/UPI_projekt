@@ -24,8 +24,8 @@
       <file leaf-file-name="baza.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/baza.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="19" column="10" lean-forward="false" selection-start-line="19" selection-start-column="10" selection-end-line="19" selection-end-column="10" />
+            <state relative-caret-position="204">
+              <caret line="20" column="10" lean-forward="false" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="10" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -37,7 +37,17 @@
         <entry file="file://$PROJECT_DIR$/upi_projekt.db">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="357">
-              <caret line="21" column="4060" lean-forward="true" selection-start-line="21" selection-start-column="4060" selection-end-line="21" selection-end-column="4060" />
+              <caret line="21" column="4072" lean-forward="false" selection-start-line="21" selection-start-column="4072" selection-end-line="21" selection-end-column="4072" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.tpl" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/views/index.tpl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -73,7 +83,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="korisnik.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="korisnik.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Entiteti/korisnik.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="340">
@@ -125,6 +135,11 @@
               <item name="temple" type="b2602c69:ProjectViewProjectNode" />
               <item name="temple" type="462c0819:PsiDirectoryNode" />
               <item name="Entiteti" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="temple" type="b2602c69:ProjectViewProjectNode" />
+              <item name="temple" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -364,8 +379,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/baza.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="19" column="10" lean-forward="false" selection-start-line="19" selection-start-column="10" selection-end-line="19" selection-end-column="10" />
+        <state relative-caret-position="204">
+          <caret line="20" column="10" lean-forward="false" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="10" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
@@ -380,18 +395,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/upi_projekt.db">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="4060" lean-forward="true" selection-start-line="21" selection-start-column="4060" selection-end-line="21" selection-end-column="4060" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Entiteti/korisnik.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="20" column="4" lean-forward="true" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/upi_projekt.db">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="4072" lean-forward="false" selection-start-line="21" selection-start-column="4072" selection-end-line="21" selection-end-column="4072" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/index.tpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>

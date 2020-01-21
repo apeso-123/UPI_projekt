@@ -25,6 +25,11 @@
              <label for="txt_reg_user" class="fb-text-label">Korisničko ime:<span class="fb-required">*</span>
              </label>
              <input type="text" placeholder="Unesite korisničko ime"  class="reguser" name="txt_reg_user" maxlength="25" id="txt_reg_user" required="required" aria-required="true">
+
+             %for item in data:
+              
+             %end
+
            </div>
 
            <div>

@@ -7,6 +7,7 @@ sys.path.append(dirname.replace('\\', '/') + '/Entiteti/')
 from drzava import Drzava
 from grad import Grad
 from korisnik import Korisnik
+from korisnik_grad import Korisnik_Grad
 
 def unesi_demo_podatke():
     conn = sqlite3.connect("upi_projekt.db")
@@ -40,10 +41,22 @@ def unesi_demo_podatke():
         korisnicko_ime text NOT NULL,
         lozinka text NOT NULL
         );
-        
+
+        CREATE TABLE IF NOT EXISTS korisnik_grad (
+        id_baze INTEGER PRIMARY KEY,
+        opis text NOT NULL,
+        znamenitosti text NOT NULL,
+        prijevoz text NOT NULL,
+        smjestaj text NOT NULL,
+        hrana text NOT NULL,
+        zanimljivosti text NOT NULL,
+        grad_id INTEGER NOT NULL,
+        korisnik_id INTEGER NOT NULL,
+        FOREIGN KEY (grad_id) REFERENCES grad (id_grad),
+        FOREIGN KEY (korisnik_id) REFERENCES korisnik (id_korisnik)
+        );
         """)
         
-        print("uspjesno kreirana tablica drzava i grad!")
 
         #cur.execute("INSERT INTO drzava (naziv) VALUES (?)",("Hrvatska",))
         #cur.execute("INSERT INTO drzava (naziv) VALUES (?)",("Austrija",))
@@ -183,7 +196,6 @@ def procitaj_sve_podatke_grad():
     conn.close()
     return lista_gradova
 
-
 def sacuvaj_novi_grad(naziv,link_slike,id_drzava):
     conn = sqlite3.connect("upi_projekt.db")
     try:
@@ -200,12 +212,12 @@ def sacuvaj_novi_grad(naziv,link_slike,id_drzava):
 
     conn.close()
 
-def izbrisi_grad(grad_id):
+def izbrisi_grad(grad_id_):
     conn = sqlite3.connect("upi_projekt.db")
     try:
 
         cur = conn.cursor()
-        cur.execute("DELETE FROM grad WHERE id_grad=?;", (str(grad_id)))
+        cur.execute("DELETE FROM grad WHERE id_grad=?;", (str(grad_id_)))
         conn.commit()
 
         print("uspjesno izbrisan grad iz baze podataka")
@@ -284,6 +296,22 @@ def procitaj_sve_podatke_korisnik():
     conn.close()
     return lista_korisnika
 
+def ispisi_korisnike_po_username():
+    con = sqlite3.connect("upi_projekt.db")
+    lista=[]
+    try:
+        cur =con.cursor()
+        cur.execute(""" SELECT korisnicko_ime  FROM korisnik """)
+        podaci=cur.fetchall()
+        for user in podaci:
+            lista.append(user)
+    except Exception as e:
+        print("Pogreška prilikom dohvaćanja svih korisničkih imena iz baze podataka",e)
+        conn.rollback()
+    con.close()
+    return lista
+
+
 
 def sacuvaj_novog_korisnika(ime,prezime,spol,korisnicko_ime,loz):
     conn = sqlite3.connect("upi_projekt.db")
@@ -323,7 +351,7 @@ def dohvati_korisnika_po_id(id_):
     try:
 
         cur = conn.cursor()
-        cur.execute(" SELECT ime,prezime,spol,korisnicko_ime,lozinka FROM korisnik WHERE id_korisnik = ?", (str(id_)))
+        cur.execute(" SELECT id_korisnik, ime, prezime,spol,korisnicko_ime,lozinka FROM korisnik WHERE id_korisnik = ?", (str(id_)))
         podaci = cur.fetchone()
 
         print("podaci", podaci)
@@ -336,7 +364,7 @@ def dohvati_korisnika_po_id(id_):
         conn.rollback()
 
     conn.close()
-    return korisnik
+    return podaci
 
 def azuriraj_korisnika(id_korisnika,ime,prezime,spol,korisnicko_ime,lozinka):
     conn = sqlite3.connect("upi_projekt.db")
