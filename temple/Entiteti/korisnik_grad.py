@@ -1,5 +1,5 @@
 class Korisnik_Grad():
-    def __init__(self, id_baze, korisnik_id,grad_id,opis,znamenitosti,prijevoz,smjestaj,hrana,zanimljivosti):
+    def __init__(self, id_baze,opis,znamenitosti,prijevoz,smjestaj,hrana,zanimljivosti,grad_id,korisnik_id):
         self._id = id_baze
         self._korisnik_id=korisnik_id
         self._grad_id=grad_id
@@ -12,7 +12,7 @@ class Korisnik_Grad():
 
     @property
     def id_baze(self):
-        return self._id_baze
+        return self._id
 
     @property
     def korisnik_id(self):

@@ -22,7 +22,7 @@
       <img src="https://www.graphicsprings.com/filestorage/stencils/0ddb25ad340d8da337f7596e50a63821.png?width=500&height=500" style="width:100px;" >
   </div><br><br>
   <div class="container">
-        <a class="navbar-brand" href="#">I have been there</a>
+        <a class="navbar-brand" href="/">I have been there</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -37,10 +37,7 @@
               <a class="nav-link" href="gradovi">Što želiš posjetit</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Upute</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="login">Prijavi se</a>
+              <a class="nav-link" href="login">Korisnički profil</a>
             </li>
           </ul>
         </div>

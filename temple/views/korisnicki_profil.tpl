@@ -1,18 +1,15 @@
 % include('header.tpl', title='Korisnicka stranica')
+
 <div class="container" style="margin-top:30px">
-	<form style="width:100%"  method='POST'>
+	<form style="width:100%">
   <div class="row">
     <div class="col-sm-4">
-      <h2>About Me</h2>
-      <h5>Photo of me:</h5>
-      <div class="fakeimg">Fake Image</div>
+      <h2>Tu bi tribala slika doc:</h2>
+      <br><br><br>
 
       <ul class="nav nav-pills flex-column">
         <li class="nav-item">
-          <a class="nav-link active" href="#">Dodaj novi grad koji si posjetio</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pregledaj svoje gradove</a>
+          <a class="nav-link" href="odabiranje_drzave">Dodaj novi grad</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Poruke</a>
@@ -22,34 +19,53 @@
         </li>
       </ul>
       <hr class="d-sm-none">
-    </div>
+    </div><br><br>
     <div class="col-sm-8">
       <br>
-      <h5>Ime</h5>
-			<p></p>
-			<h5>Prezime</h5>
-			<p></p>
-      <h5>Spol</h5>
-			<p></p>
+      <h5>Ime:  {{data.ime}}</h5>
+			
+			<h5>Prezime:  {{data.prezime}}</h5>
+			
+      <h5>Spol:  {{data.spol}}</h5>
+			
     </div>
-		<!-- <div class="col-sm-10">
+   <br><br><br>
+   <div class="col-sm-8">
 			<table class="table">
             <thead>
                 <tr>
-                <th scope="col">Svi gradovi koje sam posjetio</th>
+                <th scope="col" style="color:#ff8080;">GRAD</th>
+                <th scope="col" style="color:#ff8080;">OPIS</th>
+                <th scope="col" style="color:#ff8080;">ZNAMENITOSTI</th>
+                <th scope="col" style="color:#ff8080;">PRIJEVOZ</th>
+                <th scope="col" style="color:#ff8080;">SMJEŠTAJ</th>
+                <th scope="col" style="color:#ff8080;">HRANA</th>
+                <th scope="col" style="color:#ff8080;">ZANIMLJIVOSTI</th>
                 </tr>
             </thead>
             <tbody>
 
-                %for item in data:
+              %if lista!= []:
+                %for item in lista:
                     <tr>
-                        <th scope="row"> {{}} </th>
+                        <th scope="row">{{item["grad_naziv"]}} </th>
+                        <th scope="row">{{item["opis"]}} </th>
+                        <th scope="row">{{item["znamenitosti"]}} </th>
+                        <th scope="row">{{item["prijevoz"]}} </th>
+                        <th scope="row">{{item["smjestaj"]}} </th>
+                        <th scope="row">{{item["hrana"]}} </th>
+                        <th scope="row">{{item["zanimljivosti"]}} </th>
+                        
+                        
                     </tr>
                 %end
+              %end
             </tbody>
         </table>
-		</div> -->
+		</div>
+		
   </div>
-</form>
+  </form>
 </div>
+
 % include('footer.tpl')
