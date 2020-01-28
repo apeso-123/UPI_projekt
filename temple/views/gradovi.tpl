@@ -1,5 +1,5 @@
 %include('header.tpl',title='Pocetna stranica')
-<form action={form_akcija} method='POST'>
+<form method='POST'>
 <div class="col-sm-8">
 			<table class="table">
             <thead>
@@ -19,14 +19,14 @@
               %if lista!= []:
                 %for item in lista:
                     <tr>
-                        <th scope="row">{{item["korisnik_user_name"]}} </th>
-                        <th scope="row">{{item["opis"]}} </th>
-                        <th scope="row">{{item["znamenitosti"]}} </th>
+                      <th scope="row">{{item["korisnik_user_name"]}} </th>
+                      <th scope="row">{{item["opis"]}} </th>
+                      <th scope="row">{{item["znamenitosti"]}} </th>
                         <th scope="row">{{item["prijevoz"]}} </th>
                         <th scope="row">{{item["smjestaj"]}} </th>
                         <th scope="row">{{item["hrana"]}} </th>
                         <th scope="row">{{item["zanimljivosti"]}} </th>
-                        <th scope="row"> <a href='/nova_poruka' value='{{item["korisnik_id"]}}'>KONTAKTIRAJ</a></th>
+                        <th scope="row"> <a href='/nova_poruka/{{item["korisnik_id"]}}' value='{{item["korisnik_id"]}}'>KONTAKTIRAJ</a></th>
 
                         
                         

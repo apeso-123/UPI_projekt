@@ -1,5 +1,6 @@
 import sqlite3
 import os, sys
+from datetime import datetime
 
 
 dirname = os.path.dirname(sys.argv[0])
@@ -9,6 +10,7 @@ from drzava import Drzava
 from grad import Grad
 from korisnik import Korisnik
 from korisnik_grad import Korisnik_Grad
+from poruka import Poruka
 
 def unesi_demo_podatke():
     conn = sqlite3.connect("upi_projekt.db")
@@ -56,11 +58,21 @@ def unesi_demo_podatke():
         FOREIGN KEY (grad_id) REFERENCES grad (id_grad),
         FOREIGN KEY (korisnik_id) REFERENCES korisnik (id_korisnik)
         );
+
+        CREATE TABLE IF NOT EXISTS poruka (
+        id_poruka INTEGER PRIMARY KEY,
+        tekst text NOT NULL,
+        id_posiljatelj INTEGER NOT NULL,
+        id_primatelj INTEGER NOT NULL,
+        datum text NOT NULL,
+        procitana INTEGER NOT NULL,
+        FOREIGN KEY (id_posiljatelj) REFERENCES korisnik (id_korisnik),
+        FOREIGN KEY (id_primatelj) REFERENCES korisnik (id_korisnik)
+        )
         """)
         
-        
-        
-                
+        #cur.execute("INSERT INTO poruka (tekst,id_posiljatelj,id_primatelj,datum,procitana) VALUES (?,?,?,?,?)",("Odlično,a ti?!",2,1,dt_string,0))
+        #cur.execute("INSERT INTO poruka (tekst,id_posiljatelj,id_primatelj,datum,procitana) VALUES (?,?,?,?,?)",("Danas kao nova!",1,2,dt_string,0))
 
         #cur.execute("INSERT INTO korisnik_grad (opis,znamenitosti,prijevoz,smjestaj,hrana,zanimljivosti,grad_id,korisnik_id) VALUES(?,?,?,?,?,?,?,?)",("WoW,oduševljen sam putovanjem,stvarno odlična lokacija i previše toga sam vidio!","Crkva sv.Marka,Zagrebačka katedrala...","tramvaj","hostel","brojni domaći specijaliteti","advent u zagrebu",1,1,))
 
@@ -101,8 +113,6 @@ def procitaj_sve_podatke_drzava():
 
     conn.close()
     return lista_drzava
-
-
 def sacuvaj_novu_drzavu(naziv):
     conn = sqlite3.connect("upi_projekt.db")
     try:
@@ -359,8 +369,6 @@ def ispisi_korisnike_po_username():
     con.close()
     return lista
 
-
-
 def sacuvaj_novog_korisnika(ime,prezime,spol,korisnicko_ime,loz):
     conn = sqlite3.connect("upi_projekt.db")
     try:
@@ -506,14 +514,14 @@ def dohvati_kg_po_id(kg):
         conn.rollback()
 
     conn.close()
-    return drzava
+    return podatak
 
 def azuriraj_kg(id_baze,opis,znamenitosti,prijevoz,smjestaj,hrana,zanimljivosti,grad_id,korisnik_id):
     conn = sqlite3.connect("upi_projekt.db")
     try:
 
         cur = conn.cursor()
-        cur.execute("UPDATE korisnik_grad SET opis = ?,znamenitosti = ?, prijevoz = ?, smjestaj = ?, hrana = ?,zanimljivosti = ?,grad_id = ?,korisnik_id = ?  WHERE id_baze = ?", (opis,znamenitosti,prijevoz,smjestaj,hrana,zanimljivosti,[str(grad_id)],[str(korisnik_id)],[str(id_baze)]))
+        cur.execute("UPDATE korisnik_grad SET opis = ?,znamenitosti = ?, prijevoz = ?, smjestaj = ?, hrana = ?,zanimljivosti = ?,grad_id = ?,korisnik_id = ?  WHERE id_baze = ?", (opis,znamenitosti,prijevoz,smjestaj,hrana,zanimljivosti,grad_id,korisnik_id,id_baze))
         conn.commit()
 
         print("uspjesno ažuriran korisnik_grad iz baze podataka")
@@ -569,3 +577,157 @@ def dohvati_kg_po_grad_id(ki):
 
     conn.close()
     return lista_kg
+
+############### tablica PORUKE ###########################
+
+def procitaj_sve_podatke_poruka():
+    conn = sqlite3.connect("upi_projekt.db")
+    lista_poruka = []
+    try:
+        cur = conn.cursor()
+        cur.execute(""" SELECT id_poruka,tekst,id_posiljatelj,id_primatelj,datum,procitana FROM poruka """)        
+        podaci = cur.fetchall()        
+        for p in podaci:
+            # 0 - id
+            # 1 - naziv
+            d = Poruka(p[0], p[1],p[2],p[3],p[4],p[5])
+            print(d)
+            lista_poruka.append(d)
+
+        print("uspjesno dohvaceni svi podaci iz tablice poruka!")
+
+
+    except Exception as e: 
+        print("Dogodila se greska pri dohvacanju svih podataka iz tablice poruka: ", e)
+        conn.rollback()
+
+    conn.close()
+    return lista_poruka
+    
+def sacuvaj_novu_poruku(tekst,pos,prim,datum,procitana):
+    conn = sqlite3.connect("upi_projekt.db")
+    try:
+        cur = conn.cursor()
+        cur.execute("INSERT INTO poruka (tekst,id_posiljatelj,id_primatelj,datum,procitana) VALUES (?,?,?,?,?)", (tekst,pos,prim,datum,str(procitana)))
+        conn.commit()
+
+        print("uspjesno dodana nova poruka u bazu podataka")
+
+    except Exception as e: 
+        print("Dogodila se greska pri dodavanju nove poruke u bazu podataka: ", e)
+        conn.rollback()
+
+    conn.close()
+def dohvati_poruku_po_id_primatelja_posiljatelju(primatelj,posiljatelj):
+    conn =sqlite3.connect("upi_projekt.db")
+    poruke = []
+    try:
+        cur = conn.cursor()
+        cur.execute(" SELECT id_poruka,tekst,id_posiljatelj,id_primatelj,datum,procitana FROM poruka WHERE id_posiljatelj = ? AND id_primatelj = ?", (str(posiljatelj),str(primatelj)))        
+        podaci = cur.fetchall()    
+            
+        for k in podaci:
+            d = Poruka(k[0], k[1], k[2], k[3], k[4], k[5])
+            poruke.append(d)
+
+        print("uspjesno dohvaceni svi podaci iz tablice poruka!")
+
+        for p in poruke:
+            print(p)
+
+    except Exception as e: 
+        print("Dogodila se greska pri dohvacanju po id u prim i posilj svih podataka iz tablice poruka: ", e)
+        conn.rollback()
+    try:
+        cur = conn.cursor()
+        cur.execute(" SELECT id_poruka,tekst,id_posiljatelj,id_primatelj,datum,procitana FROM poruka WHERE id_posiljatelj = ? AND id_primatelj = ?", (str(primatelj),str(posiljatelj)))        
+        podaci = cur.fetchall()        
+        for k in podaci:
+            d = Poruka(k[0], k[1], k[2], k[3], k[4], k[5])
+            poruke.append(d)
+
+        print("uspjesno dohvaceni svi podaci iz tablice poruka!")
+
+        for p in poruke:
+            print(p)
+
+    except Exception as e: 
+        print("Dogodila se greska pri dohvacanju svih podataka iz tablice poruka: ", e)
+        conn.rollback()
+
+    conn.close()
+    return poruke
+
+
+def izbrisi_poruku(poruka_id):
+    conn = sqlite3.connect("upi_projekt.db")
+    try:
+
+        cur = conn.cursor()
+        cur.execute("DELETE FROM poruka WHERE id_poruka=?;", ([str(poruka_id)]))
+        conn.commit()
+
+        print("uspjesno izbrisna poruka iz baze podataka")
+
+    except Exception as e: 
+        print("Dogodila se greska pri brisanju poruke iz baze podataka: ", e)
+        conn.rollback()
+
+    conn.close()
+
+def dohvati_poruku_po_id(poruka_id):
+    conn =sqlite3.connect("upi_projekt.db")
+    poruke = []
+    try:
+        cur = conn.cursor()
+        cur.execute(" SELECT id_poruka,tekst,id_posiljatelj,id_primatelj,datum,procitana FROM poruka WHERE id_poruka = ?", ([str(poruka_id)]))        
+        podaci = cur.fetchall()        
+        for k in podaci:
+            d = Poruka(k[0], k[1], k[2], k[3], k[4], k[5])
+            poruke.append(d)
+
+        print("uspjesno dohvaceni svi podaci iz tablice poruka!")
+
+        for p in poruke:
+            print(p)
+
+    except Exception as e: 
+        print("Dogodila se greska pri dohvacanju svih podataka iz tablice poruka: ", e)
+        conn.rollback()
+
+    conn.close()
+    return poruke
+
+def dohvati_korisnike_s_kojima_se_dop_prijavljeni_korisnik(id_korisnik):
+    conn =sqlite3.connect("upi_projekt.db")
+    lista_korisnika_s_kojima_razgovara=[]
+    try:
+        cur = conn.cursor()
+        cur.execute(" SELECT id_poruka,tekst,id_posiljatelj,id_primatelj,datum,procitana FROM poruka WHERE id_posiljatelj = ?",([str(id_korisnik)]))        
+        podaci = cur.fetchall()        
+        for k in podaci:
+            d = Poruka(k[0], k[1], k[2], k[3], k[4], k[5])
+            if(d.id_primatelj not in lista_korisnika_s_kojima_razgovara):
+                lista_korisnika_s_kojima_razgovara.append(d.id_primatelj)
+        
+        print("uspjesno dohvaceni svi podaci iz tablice poruka!")
+    except Exception as e: 
+        print("Dogodila se greska pri dohvacanju svih podataka iz tablice poruka: ", e)
+        conn.rollback()
+    try:
+        cur = conn.cursor()
+        cur.execute(" SELECT id_poruka,tekst,id_posiljatelj,id_primatelj,datum,procitana FROM poruka WHERE id_primatelj = ?",([str(id_korisnik)]))        
+        podaci = cur.fetchall()        
+        for k in podaci:
+            d = Poruka(k[0], k[1], k[2], k[3], k[4], k[5])
+            if(d.id_posiljatelj not in lista_korisnika_s_kojima_razgovara):
+                lista_korisnika_s_kojima_razgovara.append(d.id_posiljatelj)
+        
+        print("uspjesno dohvaceni svi podaci iz tablice poruka!")
+    except Exception as e: 
+        print("Dogodila se greska pri dohvacanju svih podataka iz tablice poruka: ", e)
+        conn.rollback()
+
+    conn.close()
+    return lista_korisnika_s_kojima_razgovara
+

@@ -1,22 +1,22 @@
 from bottle import Bottle, run, \
      template, debug, get, route, static_file,request,redirect,post
 import os, sys
-from baza import unesi_demo_podatke,sacuvaj_novog_korisnika,procitaj_sve_podatke_korisnik,azuriraj_korisnika,\
-    dohvati_korisnika_po_id,ispisi_korisnike_po_username,dohvati_kg_po_korisnik_id,dohvati_grad_po_id,\
-        izbrisi_drzavu,procitaj_sve_podatke_drzava,dohvati_drzavu_po_nazivu,dohvati_drzavu_po_id,\
-            procitaj_sve_podatke_grad,izbrisi_grad,azuriraj_grad,dohvati_gradove_koji_su_u_drzavi, \
-                sacuvaj_novi_grad,sacuvaj_novog_kg,procitaj_sve_podatke_kg,dohvati_grad_po_id,dohvati_kg_po_grad_id
-
+from baza import *
+from datetime import datetime
 import json
 
 
 unesi_demo_podatke()
 
+#Globalne varijable
+sugovornik=0
 id_drzave_koja_je_odabrana=0
 korisnik_logiran=False
 korisnik_koji_je_prijavljen=None
 odabrani_grad=None
 link_na_sliku=None
+
+#Putanja
 dirname = os.path.dirname(sys.argv[0])
 template_path = dirname + '\\views'
 app = Bottle()
@@ -67,12 +67,9 @@ def gradovi(ind):
             "grad_naziv": grad.naziv,
             "korisnik_user_name": korisnik.korisnicko_ime                 
         }
-        y=json.dumps(x)
-        print(y)
         lista.append(x)
         korisnik_logiran=True
         korisnik_koji_je_prijavljen=korisnik
-
     return template('gradovi',lista=lista,template_lookup=[template_path])
 
 @app.route('/login')
@@ -103,16 +100,31 @@ def provjera_korisnickog_profila():
                     lista=dohvati_korisnicki_profil(korisnik)
                     korisnik_logiran=True
                     korisnik_koji_je_prijavljen=korisnik
-                    return template('korisnicki_profil',data=korisnik,lista=lista,korisnik_logiran=korisnik_logiran,template_lookup=[template_path])
+                    korisnici_razgovori=ucitavanje_poruka(korisnik_koji_je_prijavljen.id)
+                    return template('korisnicki_profil',data=korisnik,lista=lista,poruke=korisnici_razgovori,korisnik_logiran=korisnik_logiran,template_lookup=[template_path])
 
                 #return template('korisnicki_profil',data=korisnik,form_akcija="",template_lookup=[template_path])
                 else:
                     return template('login',form_akcija="/provjera_korisnickog_profila",korisnik_logiran=False,zastavica=True,template_lookup=[template_path])
     else:
         lista=dohvati_korisnicki_profil(korisnik_koji_je_prijavljen)
-        return template('korisnicki_profil',data=korisnik_koji_je_prijavljen,lista=lista,korisnik_logiran=korisnik_logiran,template_lookup=[template_path])
+        korisnici_razgovori=ucitavanje_poruka(korisnik_koji_je_prijavljen.id)
+        return template('korisnicki_profil',data=korisnik_koji_je_prijavljen,lista=lista,poruke=korisnici_razgovori,korisnik_logiran=korisnik_logiran,template_lookup=[template_path])
     if userID==-1:
         return template('login',form_akcija="/provjera_korisnickog_profila",zastavica=True,korisnik_logiran=False,template_lookup=[template_path])
+
+def ucitavanje_poruka(korisnik):
+    lista2=dohvati_korisnike_s_kojima_se_dop_prijavljeni_korisnik(korisnik)
+    korisnici_razgovori=[]
+    for item in lista2:   
+        user=dohvati_korisnika_po_id(item)
+        username=user.korisnicko_ime
+        x={
+            "ID_sugovornika": item,
+            "USERNAME": username
+        }       
+        korisnici_razgovori.append(x)
+    return korisnici_razgovori
 
 @app.route('/reg')
 def reg():
@@ -124,7 +136,7 @@ def dodavanje_novog_korisnika():
     postdata= request.body.read()
     svi_korisnici=procitaj_sve_podatke_korisnik()
     user_id=-1
-    #dohvacamo podatke po atributu "txt_reg_ime" definiranog u input elementu forme
+    #Dohvacanje unesenih podataka
     ime=request.forms.get('txt_reg_ime')
     prezime=request.forms.get('txt_reg_prezime')
     spol=request.forms.get('reg_spol')
@@ -155,8 +167,8 @@ def dodavanje_novog_korisnika():
 def korisnicki_profil():
     data=korisnik_koji_je_prijavljen
     lista=dohvati_korisnicki_profil(data)
-
-    return template('korisnicki_profil',data=data,lista=lista,form_akcija="",template_lookup=[template_path])
+    korisnici_razgovori=ucitavanje_poruka(korisnik_koji_je_prijavljen.id)
+    return template('korisnicki_profil',data=data,lista=lista,poruke=korisnici_razgovori,form_akcija="",template_lookup=[template_path])
 
 def dohvati_korisnicki_profil(korisnik):
     global korisnik_logiran
@@ -229,7 +241,7 @@ def spremanje_obiljezja_grada():
     prijevoz=request.forms.get('prijevoz')
     hrana=request.forms.get('hrana')
     zanimljivosti=request.forms.get('zanimljivosti')
-    print(grad_id)
+    
     sacuvaj_novog_kg(opis,znam,prijevoz,smjestaj,hrana,zanimljivosti,grad_id,korisnik_koji_je_prijavljen.id)
     
     return korisnicki_profil()
@@ -243,7 +255,7 @@ def spremanje_novog_grada():
     postdata=request.body.read()
     naziv_grada=request.forms.get('naziv_novog_grada')
     link=request.forms.get('link_na_sliku')
-    print("Tijekom SPremsnjs",id_drzave_koja_je_odabrana)
+
     sacuvaj_novi_grad(naziv_grada,link,id_drzave_koja_je_odabrana)
     return trazi_grad_za_drzavu()
 
@@ -253,8 +265,9 @@ def odjava():
     global korisnik_logiran
     korisnik_logiran=False
     korisnik_koji_je_prijavljen=None
-    data=procitaj_sve_podatke_grad()
-    return template('index',data=data,template_lookup=[template_path])
+    
+    redirect('/login')
+    #return template('index',data=data,template_lookup=[template_path])
 
 @app.route('/postavke_profila')
 def postavke_profila():
@@ -268,8 +281,93 @@ def spremi_promjene():
     prezime=request.forms.get('txt_reg_prezime')
     spol=request.forms.get('reg_spol')
     lozinka=request.forms.get('reg_lozinka')
+
     azuriraj_korisnika(korisnik_koji_je_prijavljen.id,ime,prezime,spol,lozinka)
     return korisnicki_profil()
+
+@app.route('/poruke/<ind>')
+def poruke(ind):
+    print("tu")
+    sugovornik1=int(ind)
+    global sugovornik
+    sugovornik=sugovornik1
+    user=dohvati_korisnika_po_id(sugovornik)
+    username=user.korisnicko_ime
+    sugovornik2=korisnik_koji_je_prijavljen.id
+    poruke=dohvati_poruku_po_id_primatelja_posiljatelju(sugovornik1,sugovornik2)
+    poruke.sort()
+    
+    return template('poruke',data=poruke,logirani=sugovornik2,username=username,form_akcija='/odgovori',template_lookup=[template_path])
+
+@app.route('/nova_poruka/<ind>')
+def nova_poruka(ind):
+    index=int(ind)
+    if(korisnik_logiran==True):
+        if(index!=korisnik_koji_je_prijavljen.id):
+            return template('nova_poruka',primatelj=index,form_akcija='/posalji_novu_poruku',template_lookup=[template_path])
+        else:
+            print("Ne mozes samom sebi slati poruku")
+            data=procitaj_sve_podatke_grad()
+            return template('index',data=data,template_lookup=[template_path])
+    else:
+        return template('login',form_akcija="/provjera_korisnickog_profila",zastavica= False,korisnik_logiran=False,template_lookup=[template_path])
+
+@app.route('/posalji_novu_poruku',method='POST')
+def posalji_novu_poruku():
+    postdata=request.body.read()
+    broj=request.forms.get('broj')
+    text=request.forms.get('textarea1')
+    if(korisnik_logiran== True):
+        posiljatelj=korisnik_koji_je_prijavljen.id
+    else:
+        login()
+        posiljatelj=korisnik_koji_je_prijavljen.id
+
+    now = datetime.now()
+    # dd/mm/YY H:M:S
+    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    sacuvaj_novu_poruku(text,posiljatelj,broj,dt_string,0)
+    return poruke(broj)
+@app.route('/odgovori',method='POST')
+def odgovori():
+    postdata=request.body.read()
+    tekst=request.forms.get('tekst_poruke')
+    id_posilja=korisnik_koji_je_prijavljen.id
+    id_primatelja=sugovornik
+    now = datetime.now()
+    # dd/mm/YY H:M:S
+    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    sacuvaj_novu_poruku(tekst,id_posilja,id_primatelja,dt_string,0)
+
+    return poruke(sugovornik)
+
+@app.route('/azuriranje_posta')
+def azuriranje_posta():
+    id_posta=int(request.query['postid'])
+
+    data=dohvati_kg_po_id(id_posta)
+    return template('azuriranje_posta',data=data,form_akcija='/spremi_azurirane_podatke',template_lookup=[template_path])
+
+@app.route('/spremi_azurirane_podatke',method='POST')
+def spremi_azurirane_podatke():
+    postdata=request.body.read()
+    gradid=request.forms.get('gradid')
+    postid=request.forms.get('postid')
+    opis=request.forms.get('opis')
+    znam=request.forms.get('znamenitosti')
+    smjestaj=request.forms.get('smjestaj')
+    prijevoz=request.forms.get('prijevoz')
+    hrana=request.forms.get('hrana')
+    zanimljivosti=request.forms.get('zanimljivosti')
+
+    azuriraj_kg(postid,opis,znam,prijevoz,smjestaj,hrana,zanimljivosti,gradid,korisnik_koji_je_prijavljen.id)
+    print("Spremljeni podaci!")
+    redirect('/korisnicki_profil')
+@app.route('/izbrisi_post')
+def izbrisi_post():
+    id_posta=int(request.query['postid'])
+    izbrisi_kg(id_posta)
+    redirect('/korisnicki_profil')
 
 run(app, host='localhost', port = 8081)
 
