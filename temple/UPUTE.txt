@@ -1,18 +1,49 @@
-upute:
+<style>
+.poravnanje{
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 0 20px;
+}
+.container1 {
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+}
 
-1) instalirati Python (ukoliko ga imate instaliranog, preskočiti korak)
-2) otvoriti Command prompt (konzolni prozor)
-3) instalirati pip s naredbom: "curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py"
-	ova naredba će downloadati python skriptu za instalaciju pip alata
-4) pokrenuti instalacijsku pip skriptu naredbom: "python get-pip.py"
-5) instalirati bottlepy server s naredbom: "pip install bottle"
-6) pokrenuti app.py i otvoriti http://localhost:8080/ u web pregledniku
+.darker {
+  border-color: #ccc;
+  background-color: #ddd;
+}
 
-server bi se trebao pokrenuti.
+.container1::after {
+  content: "";
+  clear: both;
+  display: table;
+}
 
-Hot reloading za HTML datoteke je uključen. 
-Ne trebate pokretati ponovo app.py skriptu pri promjenama u HTML-u.
-Ukoliko radite promjene u app.py ili nekoj drugoj skripti koja se koristi i importa u app.py onda se mora ponovo 
-pokrenuti app.py
+.container1 img {
+  float: left;
+  max-width: 60px;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 50%;
+}
 
-Happy coding! :)
+.container1 img.right {
+  float: right;
+  margin-left: 20px;
+  margin-right:0;
+}
+
+.time-right {
+  float: right;
+  color: #aaa;
+}
+
+.time-left {
+  float: left;
+  color: #999;
+}
+</style>
