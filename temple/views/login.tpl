@@ -13,8 +13,8 @@
             <label class="label" for="password"><b>Lozinka:<span class="fb-required">*</span></b></label>
             <input type="password" placeholder="Unesite lozinku" name="password" id="password" required="required" aria-required="true">
             <br><br>
-            <button class="log" id="logiraj_se" type="submit">Login</button><br><br>
-            <button class="reg" id="registiraj"><a href="reg">Registriraj se</a></button>
+            <button class="btn btn-success" type="submit">Login</button><br><br>
+            <button class="btn btn-success" ><a href="reg">Registriraj se</a></button>
           </div>
 
         </form>

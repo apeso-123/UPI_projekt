@@ -222,7 +222,7 @@ def sacuvaj_novi_grad(naziv,link_slike,id_drzava):
     try:
 
         cur = conn.cursor()
-        cur.execute("INSERT INTO grad (naziv,link_slike,id_drzava) VALUES (?,?,?)", (naziv,link_slike,id_drzava))
+        cur.execute("INSERT INTO grad (naziv,link_slike,id_drzava) VALUES (?,?,?)", (naziv,link_slike,str(id_drzava)))
         conn.commit()
 
         print("uspjesno dodana novi grad u bazu podataka")
@@ -272,24 +272,30 @@ def dohvati_grad_po_id(grad_id):
 
 def dohvati_gradove_koji_su_u_drzavi(drzava_id):
     conn = sqlite3.connect("upi_projekt.db")
-    grad = []
+    lista_gradova = []
     try:
-
         cur = conn.cursor()
-        cur.execute(" SELECT id_grad,naziv,link_slike,id_drzava FROM grad WHERE id_drzava= ?", ([str(drzava_id)]))
-        podaci = cur.fetchone()
+        cur.execute(""" SELECT id_grad, naziv, link_slike, id_drzava FROM grad WHERE id_drzava= ? """,([str(drzava_id)]))        
+        podaci = cur.fetchall()        
+        for grad in podaci:
+            # 0 - id
+            # 1 - naziv
+            # 2 - link_slike
+            # 3 - id_drzava
+            g = Grad(grad[0], grad[1], grad[2], grad[3])
+            lista_gradova.append(g)
 
-        print("podaci", podaci)
-        g = Grad(podaci[0], podaci[1],podaci[2],podaci[3])
-        grad.append(g)
-        print("uspjesno dohvacen grad iz baze podataka po ID-u")
+        print("uspjesno dohvaceni svi podaci iz tablice drzava!")
+
+        for g in lista_gradova:
+            print(g)
 
     except Exception as e: 
-        print("Dogodila se greska pri dohvacanju grada iz baze podataka po ID-u: ", e)
+        print("Dogodila se greska pri dohvacanju svih podataka iz tablice drzava: ", e)
         conn.rollback()
 
     conn.close()
-    return grad
+    return lista_gradova
 
 def azuriraj_grad(grad_id,naziv,link,drzava_id):
     conn = sqlite3.connect("upi_projekt.db")
@@ -406,14 +412,14 @@ def dohvati_korisnika_po_id(id_):
         conn.rollback()
 
     conn.close()
-    return podaci
+    return korisnik
 
-def azuriraj_korisnika(id_korisnika,ime,prezime,spol,korisnicko_ime,lozinka):
+def azuriraj_korisnika(id_korisnika,ime,prezime,spol,lozinka):
     conn = sqlite3.connect("upi_projekt.db")
     try:
 
         cur = conn.cursor()
-        cur.execute("UPDATE korisnik SET ime = ?, prezime = ?, spol = ?, korisnicko_ime = ?, lozinka = ? WHERE id_korisnik = ?", (ime,prezime,spol,korisnicko_ime,str(lozinka),[str(id_korisnika)]))
+        cur.execute("UPDATE korisnik SET ime = ?, prezime = ?, spol = ?, lozinka = ? WHERE id_korisnik = ?", (ime,prezime,spol,lozinka,str(id_korisnika)))
         conn.commit()
 
         print("uspjesno ažuriran korisnik iz baze podataka")
@@ -524,6 +530,29 @@ def dohvati_kg_po_korisnik_id(ki):
     try:
         cur = conn.cursor()
         cur.execute(" SELECT id_baze,opis,znamenitosti,prijevoz,smjestaj,hrana,zanimljivosti,grad_id,korisnik_id FROM korisnik_grad WHERE korisnik_id = ?", ([str(ki)]))        
+        podaci = cur.fetchall()        
+        for k in podaci:
+            d = Korisnik_Grad(k[0], k[1], k[2], k[3], k[4], k[5], k[6], k[7], k[8])
+            lista_kg.append(d)
+
+        print("uspjesno dohvaceni svi podaci iz tablice korisnik_grad!")
+
+        for p in lista_kg:
+            print(p)
+
+    except Exception as e: 
+        print("Dogodila se greska pri dohvacanju svih podataka iz tablice korisnik_grad: ", e)
+        conn.rollback()
+
+    conn.close()
+    return lista_kg
+
+def dohvati_kg_po_grad_id(ki):
+    conn = sqlite3.connect("upi_projekt.db")
+    lista_kg = []
+    try:
+        cur = conn.cursor()
+        cur.execute(" SELECT id_baze,opis,znamenitosti,prijevoz,smjestaj,hrana,zanimljivosti,grad_id,korisnik_id FROM korisnik_grad WHERE grad_id = ?", ([str(ki)]))        
         podaci = cur.fetchall()        
         for k in podaci:
             d = Korisnik_Grad(k[0], k[1], k[2], k[3], k[4], k[5], k[6], k[7], k[8])

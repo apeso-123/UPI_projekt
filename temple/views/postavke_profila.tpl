@@ -1,14 +1,13 @@
-% include('header.tpl',title='Registracija')
-  <div class="container">
-    <div id="aplikacija">
-       <form style="width:100%" action='{{form_akcija}}' method='POST'>
+%include('header.tpl',title='Pocetna stranica')
+<form style="width:100%" action='{{form_akcija}}' method='POST'>
+<div style="margin-left:100px;">
          <br>
-         <h1>Registracija</h1>
+         <h1>Uredi svoj profil:</h1>
          <div >
            <br>
-           <div >
-             <label for="txt_reg_ime" >Ime<span class="fb-required">*</span></label>
+          <label for="txt_reg_ime" >Ime<span class="fb-required">*</span></label>
              <input type="text" placeholder="Unesite vaše ime" name="txt_reg_ime" id="txt_reg_ime"  required="required" aria-required="true">
+            
            </div>
            <div>
              <br>
@@ -21,29 +20,14 @@
              <input type="radio" name="reg_spol" value='M'> M<br>
            </div>
            <div>
-            %if zastavica == True:
-              <p style="color:red;">   Korisnik s tim korisničkim imenom već postoji!</p>
-            %end
-           </div>
-          
-           <div><br>
-             <label for="txt_reg_user" class="fb-text-label">Korisničko ime:<span class="fb-required">*</span>
-             </label>
-             <input type="text" placeholder="Unesite korisničko ime"  class="reguser" name="txt_reg_user" maxlength="25" id="txt_reg_user" required="required" aria-required="true">
-           </div>
-
-           <div>
              <br>
              <label for="reg_lozinka">Lozinka:<span class="fb-required">*</span></label>
              <input type="password" placeholder="Unesite lozinku" name="reg_lozinka" maxlength="20" id="reg_lozinka" required="required">
            </div>
            <div>
              <br>
-             <button type="submit" class="btn btn-success">Registriraj se&nbsp;</button>
+             <button type="submit" class="btn btn-success">Spremi promjene&nbsp;</button>
            </div>
-
-         </div>
-
-       </form>
-  </div>
-% include('footer.tpl')
+</div>
+</body>
+</html>
