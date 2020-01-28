@@ -8,18 +8,18 @@
 
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="textinput">Unesi naziv grada:</label>  
+  <label class="col-md-4 control-label" for="naziv_novog_grada">Unesi naziv grada:</label>  
   <div class="col-md-4">
-  <input id="textinput" name="textinput" type="text" placeholder="" class="form-control input-md" required="">
+  <input id="naziv_novog_grada" name="naziv_novog_grada" type="text" placeholder="" class="form-control input-md" required="required">
     
   </div>
 </div>
 
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="textinput">Dodaj link na sliku tog grada:</label>  
+  <label class="col-md-4 control-label" for="link_na_sliku">Dodaj link na sliku tog grada:</label>  
   <div class="col-md-4">
-  <input id="textinput" name="textinput" type="text" placeholder="" class="form-control input-md" required="">
+  <input id="link_na_sliku" name="link_na_sliku" type="text" placeholder="" class="form-control input-md" required="required">
     
   </div>
 </div>

@@ -34,9 +34,6 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="gradovi">Što želiš posjetit</a>
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="login">Korisnički profil</a>
             </li>
           </ul>

@@ -1,25 +1,16 @@
 %include('header.tpl',title='Pocetna stranica')
+<form >
 <br><br><br><br>
   <!-- Page Content -->
-  <div class="container">
-  <img src="https://relaxino.com/sites/default/files/styles/large_full_height/public/field/image/barcelona_dreamstime_m_23606224.jpg?itok=JeYVNEM8" alt="Notebook" style="width:600px;">
+%for item in data:
+<div class="container">
+  <a href='/gradovi/{{item.id}}'><img src="{{item.link_slike}}" alt="Slika" style="width:600px;"></a>
   <div class="content">
-    <h1>Barcelona</h1>
-
+    <h1 id="odabrana_slika" name="odabrana_slika"><a href='/gradovi/{{item.id}}'>{{item.naziv}}</a></h1>
   </div>
 </div>
 <br><br><br><br>
-<div class="container">
-  <img src="https://i-a6eb.kxcdn.com/tours/pariz_putovanje_112137761_16234.jpg.axd?width=665&crop=auto&scale=both&quality=100" alt="Notebook" style="width:600px;">
-  <div class="content">
-    <h1>Pariz</h1>
-  </div>
-</div>
-
-	<script>
-
-		helloWorld();
-		prebaci();
-	</script>
+%end
+</form>
 </body>
 </html>
