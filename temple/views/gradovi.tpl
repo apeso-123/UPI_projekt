@@ -26,9 +26,7 @@
                         <th scope="row">{{item["smjestaj"]}} </th>
                         <th scope="row">{{item["hrana"]}} </th>
                         <th scope="row">{{item["zanimljivosti"]}} </th>
-                        <th scope="row"> <a href='/nova_poruka/{{item["korisnik_id"]}}' value='{{item["korisnik_id"]}}'>KONTAKTIRAJ</a></th>
-
-                        
+                        <th scope="row"> <a href='/nova_poruka?korisnikid={{item["korisnik_id"]}}' value='{{item["korisnik_id"]}}'>KONTAKTIRAJ</a></th>                        
                         
                     </tr>
                 %end

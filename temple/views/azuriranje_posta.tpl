@@ -26,7 +26,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="smjestaj">U kojem ste smještaju boravili?</label>  
   <div class="col-md-4">
-  <input id="smjestaj" name="smjestaj" type="text" placeholder="" required="required" class="form-control input-md">
+  <input id="smjestaj" name="smjestaj" type="text" placeholder="{{data.smjestaj}}" required="required" class="form-control input-md">
   </div>
 </div>
 
@@ -34,7 +34,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="prijevoz">Kojim prijevozom ste se najviše služili?</label>  
   <div class="col-md-4">
-  <input id="prijevoz" name="prijevoz" type="text" placeholder="" required="required" class="form-control input-md">
+  <input id="prijevoz" name="prijevoz" type="text" placeholder="{{data.prijevoz}}" required="required" class="form-control input-md">
   </div>
 </div>
 
@@ -42,7 +42,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="hrana">Koja mjesta za jesti biste preporučili?</label>  
   <div class="col-md-4">
-  <input id="hrana" name="hrana" type="text" placeholder="" required="required" class="form-control input-md">
+  <input id="hrana" name="hrana" type="text" placeholder="{{data.hrana}}" required="required" class="form-control input-md">
   </div>
 </div>
 
@@ -50,7 +50,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="zanimljivosti">Zanimljivosti koje ste vidjeli ili nešto što Vas je dojmilo?</label>
   <div class="col-md-4">                     
-    <textarea class="form-control" id="zanimljivosti" required="required" name="zanimljivosti"></textarea>
+    <textarea class="form-control" id="zanimljivosti" required="required" name="zanimljivosti">{{data.zanimljivosti}}</textarea>
   </div>
 </div>
 
@@ -59,6 +59,8 @@
   <label class="col-md-4 control-label" for="singlebutton"></label>
   <div class="col-md-4">
     <button id="singlebutton" name="singlebutton" type="submit" class="btn btn-success">Spremi</button>
+    <a href='/korisnicki_profil'>Odustani</a>
+
   </div>
 </div>
 

@@ -27,6 +27,8 @@
            <div>
              <br>
              <button type="submit" class="btn btn-success">Spremi promjene&nbsp;</button>
+            <a href='/korisnicki_profil'>Odustani</a>
+
            </div>
 </div>
 </body>

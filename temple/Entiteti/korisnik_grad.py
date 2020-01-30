@@ -9,7 +9,7 @@ class Korisnik_Grad():
         self._smjestaj=smjestaj
         self._hrana=hrana
         self._zanimljivosti=zanimljivosti
-
+    
     @property
     def id_baze(self):
         return self._id

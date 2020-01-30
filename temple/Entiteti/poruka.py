@@ -6,7 +6,14 @@ class Poruka():
         self._id_primatelj=id_primatelj
         self._datum=datum
         self._procitana=procitana
-        
+        try:
+            id_posiljatelj+0
+        except ValueError as e:
+            raise TypeError("id_posiljatelj mora biti broj!")
+        try:
+            id_primatelj+0
+        except ValueError as e:
+            raise TypeError("id_posiljatelj mora biti broj!")
 
     @property
     def id(self):

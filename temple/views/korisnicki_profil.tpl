@@ -107,12 +107,12 @@
                         <td>{{item["hrana"]}} </td>
                         <td>{{item["zanimljivosti"]}} </td>
                         <td> 
-                            <a href='/azuriranje_posta?postid={{item["id_baze"]}}'>Azuriraj
+                            <a href='/azuriranje_posta?postid={{item["id_baze"]}}'>Ažuriraj
                                 <i class="fas fa-edit"></i>
                             </a>
                         </td>
                         <td> 
-                            <a href='/izbrisi_post?postid={{item["id_baze"]}}'>Brisi
+                            <a href='/izbrisi_post?postid={{item["id_baze"]}}'>Briši
                                 <i class="fas fa-trash-alt"></i
                             </a>
                         </td>

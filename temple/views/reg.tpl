@@ -40,6 +40,8 @@
            <div>
              <br>
              <button type="submit" class="btn btn-success">Registriraj se&nbsp;</button>
+              <br><a href='/'>Odustani</a>
+
            </div>
 
          </div>

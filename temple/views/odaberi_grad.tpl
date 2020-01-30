@@ -32,6 +32,8 @@
   <label class="col-md-4 control-label" for="nastavi"></label>
   <div class="col-md-4">
     <button id="nastavi"  name="nastavi" class="btn btn-success" type='submit'>Dalje</button>
+    <a href='/korisnicki_profil'>Odustani</a>
+
   </div>
 </div>
 

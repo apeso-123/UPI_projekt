@@ -1,3 +1,4 @@
+
 class Grad():
     def __init__(self, id, naziv,link_slike,id_drzava):
         self._id = id
