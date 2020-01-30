@@ -4,6 +4,9 @@ import os, sys
 from baza import *
 from datetime import datetime
 import json
+import re 
+
+# Look if stringB is in stringA
 
 
 unesi_demo_podatke()
@@ -43,13 +46,42 @@ def send_jsmap(filename):
 @app.route('/')
 def index():
     data=procitaj_sve_podatke_grad()
-    return template('index',data=data,template_lookup=[template_path])
-
+    return template('index',data=data,form_akcija='/pretrazivanje',template_lookup=[template_path])
+@app.route('/pretrazivanje',method='POST')
+def pretrazivanje():
+    postdata=request.body.read()
+    unos=str(request.forms.get('search')).lower()
+    if unos=="":
+        redirect('/')
+    gradovi=procitaj_sve_podatke_grad()
+    data=[]
+    for g in gradovi:
+        match = re.search(unos, g.naziv.lower())
+        if match:
+            data.append(g)
+    drzave=procitaj_sve_podatke_drzava()
+    for d in drzave:
+        match=re.search(unos,d.naziv.lower())
+        if match:
+            gradovi=dohvati_gradove_koji_su_u_drzavi(d.id)
+            for g in gradovi:
+                data.append(g)
+    return template('index',data=data,form_akcija='/pretrazivanje',template_lookup=[template_path])
+@app.route('/kontakt')
+def kontakt():
+    return template('kontakt',template_lookup=[template_path])
 @app.route('/gradovi/<ind>')
 def gradovi(ind):
-    index=int(ind)
+    index=ind
     kg=dohvati_kg_po_grad_id(index)
     lista=[]
+    try:
+        index=int(index)
+    except Exception as e:
+        if(korisnik_logiran):
+            redirect('/korisnicki_profil')
+        else:
+            redirect('/login')
 
     for g in kg:
         grad=dohvati_grad_po_id(index)
@@ -68,8 +100,7 @@ def gradovi(ind):
             "korisnik_user_name": korisnik.korisnicko_ime                 
         }
         lista.append(x)
-        korisnik_logiran=True
-        korisnik_koji_je_prijavljen=korisnik
+        
     return template('gradovi',lista=lista,template_lookup=[template_path])
 
 @app.route('/login')
@@ -287,7 +318,7 @@ def spremi_promjene():
 
 @app.route('/poruke/<ind>')
 def poruke(ind):
-    print("tu")
+
     sugovornik1=int(ind)
     global sugovornik
     sugovornik=sugovornik1
@@ -299,16 +330,15 @@ def poruke(ind):
     
     return template('poruke',data=poruke,logirani=sugovornik2,username=username,form_akcija='/odgovori',template_lookup=[template_path])
 
-@app.route('/nova_poruka/<ind>')
-def nova_poruka(ind):
-    index=int(ind)
+@app.route('/nova_poruka')
+def nova_poruka():
+    index=int(request.query['korisnikid'])
     if(korisnik_logiran==True):
         if(index!=korisnik_koji_je_prijavljen.id):
-            return template('nova_poruka',primatelj=index,form_akcija='/posalji_novu_poruku',template_lookup=[template_path])
+            return template('nova_poruka',primatelj=index,form_akcija='/posalji_novu_poruku',odustani='/',template_lookup=[template_path])
         else:
             print("Ne mozes samom sebi slati poruku")
-            data=procitaj_sve_podatke_grad()
-            return template('index',data=data,template_lookup=[template_path])
+            redirect('/')
     else:
         return template('login',form_akcija="/provjera_korisnickog_profila",zastavica= False,korisnik_logiran=False,template_lookup=[template_path])
 

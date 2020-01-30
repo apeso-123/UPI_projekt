@@ -15,6 +15,8 @@
             </select><br>
             <div class="col-md-8">
               <button id="singlebutton" name="singlebutton" type="submit" class="btn btn-success">Dalje</button>
+              <a href='/korisnicki_profil'>Odustani</a>
+
             </div>
           </div>
         </div>

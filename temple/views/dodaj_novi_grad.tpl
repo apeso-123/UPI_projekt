@@ -29,6 +29,8 @@
   <label class="col-md-4 control-label" for="singlebutton"></label>
   <div class="col-md-4">
     <button id="singlebutton" type='submit' name="singlebutton" class="btn btn-success">Dalje</button>
+    <a href='/korisnicki_profil'>Odustani</a>
+
   </div>
 </div>
 

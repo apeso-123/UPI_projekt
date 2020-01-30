@@ -35,10 +35,10 @@ class Korisnik():
         return """
         id: {0}
         ime: {1}
-	prezime: {2}
+	    prezime: {2}
         spol: {3}
-	korisnicko_ime: {4}
-	lozinka: {5}
+	    korisnicko_ime: {4}
+	    lozinka: {5}
         ----------------
         """.format(self._id, self._ime,self._prezime,self._spol,self._korisnicko_ime,self._lozinka)
 

@@ -80,6 +80,8 @@
   <label class="col-md-4 control-label" for="singlebutton"></label>
   <div class="col-md-4">
     <button id="singlebutton" name="singlebutton" type="submit" class="btn btn-primary">Pošalji</button>
+    <br><a href='/korisnicki_profil'>Natrag na svoj profil</a>
+
   </div>
 </div>
 </form>

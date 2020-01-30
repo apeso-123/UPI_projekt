@@ -70,17 +70,7 @@ def unesi_demo_podatke():
         FOREIGN KEY (id_primatelj) REFERENCES korisnik (id_korisnik)
         )
         """)
-        
-        #cur.execute("INSERT INTO poruka (tekst,id_posiljatelj,id_primatelj,datum,procitana) VALUES (?,?,?,?,?)",("Odlično,a ti?!",2,1,dt_string,0))
-        #cur.execute("INSERT INTO poruka (tekst,id_posiljatelj,id_primatelj,datum,procitana) VALUES (?,?,?,?,?)",("Danas kao nova!",1,2,dt_string,0))
 
-        #cur.execute("INSERT INTO korisnik_grad (opis,znamenitosti,prijevoz,smjestaj,hrana,zanimljivosti,grad_id,korisnik_id) VALUES(?,?,?,?,?,?,?,?)",("WoW,oduševljen sam putovanjem,stvarno odlična lokacija i previše toga sam vidio!","Crkva sv.Marka,Zagrebačka katedrala...","tramvaj","hostel","brojni domaći specijaliteti","advent u zagrebu",1,1,))
-
-        #cur.execute("INSERT INTO drzava (naziv) VALUES (?)",("Hrvatska",))
-        #cur.execute("INSERT INTO drzava (naziv) VALUES (?)",("Austrija",))
-        #cur.execute("INSERT INTO grad (naziv,link_slike,id_drzava) VALUES (?,?,?)",("Zagreb","https://slikezadesktop.com/wp-content/uploads/2019/01/katedrala-zagreb-slike-za-pozadine-564x376.jpg",1,))
-        #cur.execute("INSERT INTO grad (naziv,link_slike,id_drzava) VALUES (?,?,?)",("Beč","http://www.pogled.ba/storage/cache/images/d/9/d/5/SMR6uC0i_bec_bozic_1_1_475_316_85_s_c1.jpg",2,))
-        #cur.execute("INSERT INTO korisnik (ime,prezime,spol,korisnicko_ime,lozinka) VALUES (?,?,?,?,?)",("Antonia","Peso","Ž","apeso","12345678",))
         conn.commit()
 
         print("uspjesno uneseni testni podaci!")
@@ -113,6 +103,7 @@ def procitaj_sve_podatke_drzava():
 
     conn.close()
     return lista_drzava
+    
 def sacuvaj_novu_drzavu(naziv):
     conn = sqlite3.connect("upi_projekt.db")
     try:
