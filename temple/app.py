@@ -10,6 +10,7 @@ import re
 
 
 unesi_demo_podatke()
+izbrisi_poruku(9)
 
 #Globalne varijable
 sugovornik=0
