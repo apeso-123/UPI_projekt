@@ -10,7 +10,6 @@ import re
 
 
 unesi_demo_podatke()
-izbrisi_poruku(9)
 
 #Globalne varijable
 sugovornik=0
@@ -319,8 +318,13 @@ def spremi_promjene():
 
 @app.route('/poruke/<ind>')
 def poruke(ind):
+    index=ind
+    try:
+        index=int(index)
+    except Exception as e:
+            redirect('/korisnicki_profil')
+    sugovornik1=index
 
-    sugovornik1=int(ind)
     global sugovornik
     sugovornik=sugovornik1
     user=dohvati_korisnika_po_id(sugovornik)
