@@ -192,7 +192,7 @@ def dodavanje_novog_korisnika():
     for korisnik in svi_korisnici:
         if korisnik.korisnicko_ime==user_name:
             dohvati_korisnicki_profil(korisnik)      
-
+    redirect('/korisnicki_profil')
   
 @app.route('/korisnicki_profil')
 def korisnicki_profil():
