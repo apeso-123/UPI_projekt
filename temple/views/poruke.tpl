@@ -48,12 +48,26 @@
   float: left;
   color: #999;
 }
-</style>
+.botun{
+  background-color:#666666;
+  border-radius:15px;
+  max-width: 100px;
+  padding: 0 20px;
 
+}
+.forma{
+  border-radius:12px;
+  border-color:#666666;
+  width: 100%;
+  height:100px;
+}
+</style>
+</body>
+<body style="background-image: url('https://wallpaperaccess.com/full/146276.jpg');">
 <form action='{{form_akcija}}' method='POST'>
 
   <div class="poravnanje"><br>
-  <h5>Razgovaraš s: {{username}}</h5><br>
+  <h5>{{username}}</h5><br>
   %for item in data:
     %if logirani!=item.id_posiljatelj:
       <div class="container1">
@@ -70,17 +84,17 @@
   
 
 <div class="form-group">
-  <div class="col-md-4">                     
-    <textarea class="form-control" id="tekst_poruke" name="tekst_poruke" style="width:700px;height:100px;"></textarea>
+  <div>                     
+    <textarea class="forma" id="tekst_poruke" name="tekst_poruke"></textarea>
   </div>
 </div>
 
 <!-- Button -->
-<div class="form-group">
+<div>
   <label class="col-md-4 control-label" for="singlebutton"></label>
-  <div class="col-md-4">
-    <button id="singlebutton" name="singlebutton" type="submit" class="btn btn-primary">Pošalji</button>
-    <br><a href='/korisnicki_profil'>Natrag na svoj profil</a>
+  <div class="col-md-6">
+    <button id="singlebutton" name="singlebutton" type="submit" class="botun" >Pošalji</button>
+    <a href='/korisnicki_profil'>Natrag na svoj profil</a><br><br>
 
   </div>
 </div>

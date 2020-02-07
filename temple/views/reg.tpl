@@ -1,8 +1,29 @@
 % include('header.tpl',title='Registracija')
-  <div class="container">
+<style>
+.container_reg{
+  margin-left:400px;
+  margin-right:500px;
+  background-color:white;
+  border:2px solid black;
+  padding:25px;
+  }
+.bg-img {
+  /* The image used */
+  background-image: url("https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+  
+  min-height: 600px;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  
+  position: relative;
+}
+</style>
+</body><br>
+<body class="bg-img">
+  <div class="container_reg">
     <div id="aplikacija">
        <form style="width:100%" action='{{form_akcija}}' method='POST'>
-         <br>
          <h1>Registracija</h1>
          <div >
            <br>
@@ -40,12 +61,13 @@
            <div>
              <br>
              <button type="submit" class="btn btn-success">Registriraj se&nbsp;</button>
-              <br><a href='/'>Odustani</a>
+            <a href='/'>Odustani</a>
 
            </div>
 
          </div>
 
        </form>
+  </div>
   </div>
 % include('footer.tpl')
