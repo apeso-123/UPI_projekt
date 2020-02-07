@@ -6,7 +6,7 @@
 
 .bg-img {
   /* The image used */
-  background-image: url("https://ideas.staticsfly.com/ideas/wp-content/uploads/2019/04/funny-travel-quotes-800x534.jpg");
+  background-image: url("https://cdn.lifehack.org/wp-content/uploads/2013/06/083-explore2-1440x900-A-1024x640.jpg");
   
   min-height: 600px;
 

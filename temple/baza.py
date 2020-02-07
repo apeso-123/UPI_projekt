@@ -92,6 +92,7 @@ def procitaj_sve_podatke_drzava():
             # 0 - id
             # 1 - naziv
             d = Drzava(drza[0], drza[1])
+            print(d)
             lista_drzava.append(d)
 
         print("uspjesno dohvaceni svi podaci iz tablice drzava!")
@@ -109,7 +110,7 @@ def sacuvaj_novu_drzavu(naziv):
     try:
 
         cur = conn.cursor()
-        cur.execute("INSERT INTO drzava (naziv) VALUES (?)", (naziv))
+        cur.execute("INSERT INTO drzava (naziv) VALUES (?)", ([naziv]))
         conn.commit()
 
         print("uspjesno dodana nova drzava u bazu podataka")
@@ -179,7 +180,7 @@ def azuriraj_drzavu(drzava_id,naziv):
     try:
 
         cur = conn.cursor()
-        cur.execute("UPDATE drzava SET naziv = ? WHERE id_drzava = ?", (naziv,str(drzava_id)))
+        cur.execute("UPDATE drzava SET naziv = ? WHERE id = ?", (naziv,str(drzava_id)))
         conn.commit()
 
         print("uspjesno ažurirana drzava iz baze podataka")
@@ -303,7 +304,7 @@ def azuriraj_grad(grad_id,naziv,link,drzava_id):
     try:
 
         cur = conn.cursor()
-        cur.execute("UPDATE grad SET naziv = ?, link_slike = ? ,id_drzava = ? WHERE id_grad = ?", (naziv,link,[str(drzava_id)],[str(grad_id)]))
+        cur.execute("UPDATE grad SET naziv = ?, link_slike = ? ,id_drzava = ? WHERE id_grad = ?", (naziv,link,drzava_id,str(grad_id)))
         conn.commit()
 
         print("uspjesno ažuriran grad iz baze podataka")

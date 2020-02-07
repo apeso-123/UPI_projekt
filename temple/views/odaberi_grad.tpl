@@ -1,5 +1,13 @@
 %include('header.tpl',title='Pocetna stranica')
-<form class="form-horizontal" action='{{form_akcija}}' method='POST'>
+<style>
+.forma{
+  position:relative;
+  align:left;
+  
+}
+</style>
+<div class="forma">
+<form class="" action='{{form_akcija}}' method='POST'>
 <fieldset>
 
 <!-- Form Name -->
@@ -9,7 +17,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="novi"></label>
   <div class="col-md-4">
-    <button id="novi" name="novi" class="btn btn-warning"><a href='/dodaj_novi_grad'>Dodaj novi grad u listu</a></button>
+    <button id="novi" name="novi" style="background-color:transparent;"><a href='/dodaj_novi_grad'>Dodaj novi grad u listu</a></button>
   </div>
 </div>
 
@@ -39,5 +47,6 @@
 
 </fieldset>
 </form>
+</div>
 
 %include('footer.tpl')

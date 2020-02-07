@@ -1,5 +1,16 @@
 %include('header.tpl',title='Ažuriranje posta')
 <style>
+.bg-img {
+  /* The image used */
+  background-image: url("https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+  
+  min-height: 600px;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  
+  position: relative;
+}
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   max-width: 300px;
@@ -30,7 +41,8 @@
   font-size: 18px;
 }
 </style>
-
+</body>
+<body class="bg-img">
 <h2 style="text-align:center">Autori:</h2>
 
 <div class="card">

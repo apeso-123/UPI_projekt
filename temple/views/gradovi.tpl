@@ -1,5 +1,28 @@
 %include('header.tpl',title='Pocetna stranica')
+<style>
+.bg-img {
+  /* The image used */
+  background-image: url("https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+  
+  min-height: 600px;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  
+  position: relative;
+}
+.tablica{
+  position:relative;
+  top:15px;
+  background-color:white;
+  left:10%;
+  margin-right:400px;
+}
+</style>
+</body>
+<body class="bg-img">
 <form method='POST'>
+<div class="tablica">
 <div class="col-sm-8">
 			<table class="table">
             <thead>
@@ -34,5 +57,6 @@
             </tbody>
         </table>
 		</div>
+  </div>
 </form>
 %include('footer.tpl')

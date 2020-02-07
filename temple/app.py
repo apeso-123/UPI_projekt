@@ -6,7 +6,6 @@ from datetime import datetime
 import json
 import re 
 
-# Look if stringB is in stringA
 
 
 unesi_demo_podatke()
@@ -164,6 +163,8 @@ def reg():
 
 @app.route('/dodavanje_novog_korisnika',method='POST')
 def dodavanje_novog_korisnika():
+    global korisnik_logiran
+    global korisnik_koji_je_prijavljen
     postdata= request.body.read()
     svi_korisnici=procitaj_sve_podatke_korisnik()
     user_id=-1
@@ -191,9 +192,14 @@ def dodavanje_novog_korisnika():
         
     for korisnik in svi_korisnici:
         if korisnik.korisnicko_ime==user_name:
-            dohvati_korisnicki_profil(korisnik)      
-    redirect('/korisnicki_profil')
-  
+            korisnik_koji_je_prijavljen=korisnik
+            korisnik_logiran=True
+            data=korisnik_koji_je_prijavljen
+            lista=dohvati_korisnicki_profil(data)
+            korisnici_razgovori=ucitavanje_poruka(korisnik_koji_je_prijavljen.id)
+            return template('korisnicki_profil',data=data,lista=lista,poruke=korisnici_razgovori,form_akcija="",template_lookup=[template_path])
+
+
 @app.route('/korisnicki_profil')
 def korisnicki_profil():
     data=korisnik_koji_je_prijavljen
